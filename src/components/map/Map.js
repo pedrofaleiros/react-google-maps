@@ -1,17 +1,15 @@
-import "./App.css";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { Component } from "react";
-import { Markers } from "./Markers";
+import Markers from "../marker/Markers";
 
-function Mapa() {
+export function Map() {
+  const center = { lat: -15.79, lng: -47.91 };
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "",
   });
 
-  const center = { lat: -15.79, lng: -47.91 };
-
   if (!isLoaded) {
-    return <div>Erro</div>;
+    return <div>Loading...</div>;
   }
 
   const markers = new Markers();
@@ -21,13 +19,9 @@ function Mapa() {
       zoom={12}
       center={center}
       mapContainerClassName="map-container"
-      onClick={(click)=>{
-		markers.addMarker(click)
-	  }}
+      onClick={markers.addMarker}
     >
-      {markers.render()}
+      {markers.render}
     </GoogleMap>
   );
 }
-
-export default Mapa;
